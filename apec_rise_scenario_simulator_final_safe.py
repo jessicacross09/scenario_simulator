@@ -1,28 +1,14 @@
 import streamlit as st
 import pandas as pd
 
-# Embedded data with string-formatted flags
-data = [
-    # (shortened for readability – insert full 1,260-row data dict here in practice)
-    # Sample row:
-    {
-        "Economy": "Vietnam",
-        "Workstream": "Trade Policy",
-        "Assumption": "Stakeholder alignment with U.S. priorities",
-        "Scenario": "Pessimistic",
-        "Trigger": "Difficulties gaining stakeholder buy-in or moving U.S. priorities forward",
-        "Adaptation": "Intensify diplomatic engagement; tailor technical assistance; focus on institutional champions; document resistance for follow-up",
-        "Flags": "High Risk, Sensitive"
-    },
-    # ... add all other rows here ...
-]
+# Load the scenario matrix with flags
+df = pd.read_csv("full_apec_rise_scenario_matrix_with_flags.csv")
 
-df = pd.DataFrame(data)
-
-st.set_page_config(page_title="APEC-RISE Full Scenario Simulator", layout="centered")
+st.set_page_config(page_title="APEC-RISE Scenario Simulator", layout="centered")
 st.title("🧭 APEC-RISE Scenario Planning Simulator")
-st.caption("Select an economy, workstream, assumption, and scenario to explore triggers, responses, and strategic flags.")
+st.caption("Explore risk triggers and adaptation strategies across 21 APEC economies.")
 
+# Dropdowns for filters
 economy = st.selectbox("🌐 Select Economy", sorted(df["Economy"].unique()))
 workstream = st.selectbox("🧩 Select Workstream", sorted(df["Workstream"].unique()))
 filtered_df = df[(df["Economy"] == economy) & (df["Workstream"] == workstream)]
@@ -30,6 +16,7 @@ filtered_df = df[(df["Economy"] == economy) & (df["Workstream"] == workstream)]
 assumption = st.selectbox("🔹 Select Assumption", filtered_df["Assumption"].unique())
 scenario = st.radio("🔸 Select Scenario", ["Baseline", "Optimistic", "Pessimistic"])
 
+# Icons for scenario and flag display
 icons = {"Baseline": "🟡", "Optimistic": "🟢", "Pessimistic": "🔴"}
 flag_icons = {
     "High Risk": "🔴",
@@ -37,6 +24,7 @@ flag_icons = {
     "Sensitive": "🔒"
 }
 
+# Filter based on full selection
 row = filtered_df[(filtered_df["Assumption"] == assumption) & (filtered_df["Scenario"] == scenario)]
 if not row.empty:
     flag_str = str(row["Flags"].values[0])
@@ -47,7 +35,7 @@ if not row.empty:
     st.markdown("### 🛠️ Adaptation Strategy")
     st.success(str(row["Adaptation"].values[0]))
 
-    # Generate summary text using safe .format()
+    # Summary for download
     summary_template = """APEC-RISE Scenario Plan
 
 Economy: {economy}
@@ -58,22 +46,20 @@ Trigger: {trigger}
 Adaptation Strategy: {adaptation}
 Flags: {flags}
 """
-
     summary = summary_template.format(
         economy=economy,
         workstream=workstream,
         assumption=assumption,
         scenario=scenario,
-        trigger=row['Trigger'].values[0],
-        adaptation=row['Adaptation'].values[0],
+        trigger=row["Trigger"].values[0],
+        adaptation=row["Adaptation"].values[0],
         flags=flag_str
     )
-
     st.download_button("📥 Download Scenario Summary", data=summary, file_name="scenario_summary.txt")
-
 else:
     st.warning("No data found for this combination.")
 
+# View all scenarios for the selected assumption
 with st.expander("📊 View all scenarios for this assumption"):
     st.dataframe(
         filtered_df[filtered_df["Assumption"] == assumption][["Scenario", "Trigger", "Adaptation", "Flags"]],
@@ -81,4 +67,4 @@ with st.expander("📊 View all scenarios for this assumption"):
     )
 
 st.divider()
-st.caption("U.S. APEC-RISE M&E Scenario Planning Simulator")
+st.caption("U.S. APEC-RISE M&E Scenario Simulator")
