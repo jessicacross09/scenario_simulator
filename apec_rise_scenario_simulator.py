@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Load the scenario matrix with flags
-df = pd.read_csv("full_apec_rise_scenario_matrix_with_flags.csv")
+df = pd.read_csv("full_apec_rise_scenario_matrix.csv")
 
 st.set_page_config(page_title="APEC-RISE Scenario Simulator", layout="centered")
 st.title("🧭 APEC-RISE Scenario Planning Simulator")
