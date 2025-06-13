@@ -3,7 +3,7 @@ import pandas as pd
 
 # Embedded scenario matrix data (Economy instead of Region)
 data = [
-    {"Assumption": "Stakeholder alignment with U.S. priorities", "Scenario": "Baseline", "Trigger": "Responsiveness of APEC stakeholders to U.S. priorities", "Adaptation": "Proceed with technical dialogues and co-creation efforts as planned", "Workstream": "Trade Policy", "Economy": "Vietnam"},
+    {"Assumption": "Stakeholder alignment with U.S. priorities", "Scenario": "Baseline", "Trigger": "Responsiveness of APEC stakeholders to U.S. priorities", "Adaptation": "Proceed with technical dialogues and co-creation efforts as planned", "Workstream": "Trade Policy", "Economy": "Viet Nam"},
     {"Assumption": "Stakeholder alignment with U.S. priorities", "Scenario": "Optimistic", "Trigger": "High alignment with U.S. goals", "Adaptation": "Expand collaboration with aligned economies; increase visibility of U.S.-led initiatives", "Workstream": "Trade Policy", "Economy": "Vietnam"},
     {"Assumption": "Stakeholder alignment with U.S. priorities", "Scenario": "Pessimistic", "Trigger": "Difficulties gaining stakeholder buy-in or moving U.S. priorities forward", "Adaptation": "Intensify diplomatic engagement; tailor technical assistance; focus on institutional champions; document resistance for follow-up", "Workstream": "Trade Policy", "Economy": "Vietnam"},
 
@@ -15,9 +15,9 @@ data = [
     {"Assumption": "Policy and regulatory openness", "Scenario": "Optimistic", "Trigger": "High receptivity to U.S. policy recommendations", "Adaptation": "Accelerate pilot reforms and highlight results", "Workstream": "Regulatory Reform", "Economy": "China"},
     {"Assumption": "Policy and regulatory openness", "Scenario": "Pessimistic", "Trigger": "Declining openness or regulatory pushback", "Adaptation": "Refocus engagement; seek alternate entry points or incremental reforms; monitor policy resistance", "Workstream": "Regulatory Reform", "Economy": "China"},
 
-    {"Assumption": "Digital and infrastructure readiness", "Scenario": "Baseline", "Trigger": "Sufficient readiness", "Adaptation": "Proceed with digital activities as planned", "Workstream": "Digital Economy", "Economy": "India"},
-    {"Assumption": "Digital and infrastructure readiness", "Scenario": "Optimistic", "Trigger": "Expanded digital readiness", "Adaptation": "Scale virtual engagements; introduce more advanced tools", "Workstream": "Digital Economy", "Economy": "India"},
-    {"Assumption": "Digital and infrastructure readiness", "Scenario": "Pessimistic", "Trigger": "Limited access or resistance to digital platforms", "Adaptation": "Use hybrid or offline delivery; increase support and training", "Workstream": "Digital Economy", "Economy": "India"},
+    {"Assumption": "Digital and infrastructure readiness", "Scenario": "Baseline", "Trigger": "Sufficient readiness", "Adaptation": "Proceed with digital activities as planned", "Workstream": "Digital Economy", "Economy": "Philippines"},
+    {"Assumption": "Digital and infrastructure readiness", "Scenario": "Optimistic", "Trigger": "Expanded digital readiness", "Adaptation": "Scale virtual engagements; introduce more advanced tools", "Workstream": "Digital Economy", "Economy": "Philippines"},
+    {"Assumption": "Digital and infrastructure readiness", "Scenario": "Pessimistic", "Trigger": "Limited access or resistance to digital platforms", "Adaptation": "Use hybrid or offline delivery; increase support and training", "Workstream": "Digital Economy", "Economy": "Philippines"},
 
     {"Assumption": "Responsible local ownership", "Scenario": "Baseline", "Trigger": "Cost-sharing and local uptake sustained", "Adaptation": "Continue monitoring and co-planning", "Workstream": "Capacity Building", "Economy": "Indonesia"},
     {"Assumption": "Responsible local ownership", "Scenario": "Optimistic", "Trigger": "High commitment and ownership", "Adaptation": "Increase handover planning", "Workstream": "Capacity Building", "Economy": "Indonesia"},
