@@ -4,6 +4,12 @@ import pandas as pd
 # Load the scenario matrix with flags
 df = pd.read_csv("full_apec_rise_scenario_matrix.csv")
 
+# Load inferred scenario predictions from media monitoring
+try:
+    signal_df = pd.read_csv("data/risk_signals.csv")
+except FileNotFoundError:
+    signal_df = pd.DataFrame()
+
 st.set_page_config(page_title="APEC-RISE Scenario Simulator", layout="centered")
 st.title("🧭 APEC-RISE Scenario Planning Simulator")
 st.caption("Explore risk triggers and adaptation strategies across 21 APEC economies.")
@@ -14,9 +20,20 @@ workstream = st.selectbox("🧩 Select Workstream", sorted(df["Workstream"].uniq
 filtered_df = df[(df["Economy"] == economy) & (df["Workstream"] == workstream)]
 
 assumption = st.selectbox("🔹 Select Assumption", filtered_df["Assumption"].unique())
-scenario = st.radio("🔸 Select Scenario", ["Baseline", "Optimistic", "Pessimistic"])
+scenario_options = ["Baseline", "Optimistic", "Pessimistic"]
 
-# Icons for scenario and flag display
+# Determine predicted scenario from signal file
+predicted = signal_df[(signal_df["Economy"] == economy) & (signal_df["Workstream"] == workstream)]
+auto_scenario = predicted["Scenario"].values[0] if not predicted.empty else None
+justification = predicted["Justification"].values[0] if not predicted.empty else ""
+
+if auto_scenario:
+    st.markdown(f"### 🧠 Predicted Scenario: **{auto_scenario}**")
+    st.caption(f"Justification: {justification}")
+    scenario = st.radio("🔸 Select Scenario", scenario_options, index=scenario_options.index(auto_scenario))
+else:
+    scenario = st.radio("🔸 Select Scenario", scenario_options)
+
 icons = {"Baseline": "🟡", "Optimistic": "🟢", "Pessimistic": "🔴"}
 flag_icons = {
     "High Risk": "🔴",
@@ -24,7 +41,6 @@ flag_icons = {
     "Sensitive": "🔒"
 }
 
-# Filter based on full selection
 row = filtered_df[(filtered_df["Assumption"] == assumption) & (filtered_df["Scenario"] == scenario)]
 if not row.empty:
     flag_str = str(row["Flags"].values[0])
@@ -35,7 +51,6 @@ if not row.empty:
     st.markdown("### 🛠️ Adaptation Strategy")
     st.success(str(row["Adaptation"].values[0]))
 
-    # Summary for download
     summary_template = """APEC-RISE Scenario Plan
 
 Economy: {economy}
@@ -59,7 +74,6 @@ Flags: {flags}
 else:
     st.warning("No data found for this combination.")
 
-# View all scenarios for the selected assumption
 with st.expander("📊 View all scenarios for this assumption"):
     st.dataframe(
         filtered_df[filtered_df["Assumption"] == assumption][["Scenario", "Trigger", "Adaptation", "Flags"]],
