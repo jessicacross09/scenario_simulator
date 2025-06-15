@@ -7,6 +7,7 @@ df = pd.read_csv("full_apec_rise_scenario_matrix.csv")
 # Load inferred scenario predictions from media monitoring
 try:
     signal_df = pd.read_csv("data/risk_signals.csv")
+    signal_df.columns = signal_df.columns.str.strip().str.title()
 except FileNotFoundError:
     signal_df = pd.DataFrame()
 
