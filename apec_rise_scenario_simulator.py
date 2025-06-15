@@ -8,6 +8,7 @@ df = pd.read_csv("full_apec_rise_scenario_matrix.csv")
 try:
     signal_df = pd.read_csv("data/risk_signals.csv")
     signal_df.columns = signal_df.columns.str.strip().str.title()
+    st.write("🧪 Columns in signal_df:", signal_df.columns.tolist())  # <--- ADD THIS
 except FileNotFoundError:
     signal_df = pd.DataFrame()
 
